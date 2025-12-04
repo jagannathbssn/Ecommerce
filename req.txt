@@ -1,0 +1,4 @@
+Django
+MySQL
+pillow
+Django_resized

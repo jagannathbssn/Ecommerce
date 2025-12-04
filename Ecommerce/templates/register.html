@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cartify | Register</title>
+
+    <link rel="stylesheet" href="{% static 'css/register.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="Logo" />
+      </div>
+
+      <div class="navi">
+        <nav class="nav-links">
+          <a href="{% url 'home' %}">Home</a>
+          <a href="{% url 'login' %}">Login</a>
+          <a href="{% url 'contact' %}">Contact Us</a>
+          <a href="{% url 'aboutus' %}">About Us</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <center>
+        {% if messages %} {% for i in messages %}
+        <h3 class="{{i.tags}}">{{ i }}</h3>
+        {% endfor %} {% endif %}
+
+        <h1>Please Register to Continue</h1>
+
+        <fieldset>
+          <legend>Registration Form</legend>
+
+          <form
+            id="rform"
+            action="{% url 'register' %}"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            {% csrf_token %}
+
+            <label for="type">Please select the type:</label>
+            <select name="type" id="type" required>
+              <option value="">---</option>
+              <option value="Vendor">Vendor</option>
+              <option value="Customer">Customer</option></select
+            ><br />
+
+            <p id="mg"></p>
+
+            <!-- Vendor Info Section -->
+            <div id="com_name">
+              <label for="cname">Company Name:</label>
+              <input
+                type="text"
+                name="cname"
+                id="cname"
+                placeholder="Enter company name"
+              /><br />
+
+              <label for="com_addr">Company Address:</label><br />
+              <textarea
+                name="com_addr"
+                id="com_addr"
+                cols="30"
+                rows="5"
+                placeholder="Enter company address"
+              ></textarea>
+            </div>
+
+            <label for="uname">Name:</label>
+            <input
+              type="text"
+              name="uname"
+              id="uname"
+              placeholder="Full name"
+              required
+            /><br />
+
+            <label for="email">Email ID:</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Enter email"
+              required
+            /><br />
+
+            <label for="ph_no">Phone Number:</label>
+            <input
+              type="number"
+              name="ph_no"
+              id="ph_no"
+              placeholder="Enter phone number"
+              required
+            /><br />
+
+            <label for="password">Set Password:</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter password"
+              required
+            /><br />
+
+            <label for="repassword">Re-enter Password:</label>
+            <input
+              type="password"
+              name="repassword"
+              id="repassword"
+              placeholder="Re-enter password"
+              required
+            /><br />
+
+            <p id="p_msg"></p>
+
+            <label for="loca">Location:</label>
+            <input
+              type="text"
+              name="loca"
+              id="loca"
+              placeholder="Enter your location"
+            /><br />
+
+            <label for="addr">Address:</label><br />
+            <textarea
+              name="addr"
+              id="addr"
+              cols="30"
+              rows="5"
+              placeholder="Enter address"
+            ></textarea
+            ><br />
+
+            <label for="photo">User Photo:</label>
+            <input type="file" name="photo" id="photo" accept="image/*" /><br />
+
+            <input id="sub" type="submit" value="Register" />
+            <input type="reset" value="Clear" />
+
+            <p>
+              Already have an account? <a href="{% url 'login' %}">Login</a>
+            </p>
+          </form>
+        </fieldset>
+      </center>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2025 Ecommerce. All rights reserved.</p>
+
+      <div class="social-links">
+        <a href="https://github.com/" target="_blank"
+          ><i class="fab fa-github"></i
+        ></a>
+        <a href="https://www.linkedin.com/" target="_blank"
+          ><i class="fab fa-linkedin"></i
+        ></a>
+      </div>
+    </footer>
+
+    <script src="{% static 'js/register.js' %}"></script>
+  </body>
+</html>

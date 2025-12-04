@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cartify</title>
+    <link rel="stylesheet" href="{% static 'css/aboutus.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="Logo" />
+      </div>
+
+      <div class="navi">
+        <nav class="nav-links">
+          <a href="{% url 'home' %}">Home</a>
+          <a href="{% url 'login' %}">Login</a>
+          <a href="{% url 'contact' %}">Contact Us</a>
+          <a href="{% url 'aboutus' %}">About Us</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <section class="about-section">
+        <center>
+          <h1>About Us</h1>
+        </center>
+
+        <p>
+          Welcome to <strong>Your Store Name</strong> — your trusted online
+          destination for quality products and a seamless shopping experience.
+          We are passionate about bringing you the best items at unbeatable
+          prices, with fast delivery and outstanding customer service.
+        </p>
+
+        <h2>Who We Are</h2>
+        <p>
+          We are an eCommerce brand built on simplicity, convenience, and
+          customer satisfaction. From our curated product collections to our
+          secure checkout process, everything we do is designed to make online
+          shopping easier and more enjoyable.
+        </p>
+
+        <h2>What We Offer</h2>
+        <ul>
+          <li>High-quality products sourced from trusted suppliers</li>
+          <li>Affordable prices and frequent exclusive deals</li>
+          <li>Fast and reliable shipping worldwide</li>
+          <li>Secure payments and smooth checkout</li>
+          <li>24/7 customer support ready to assist you</li>
+        </ul>
+
+        <h2>Our Mission</h2>
+        <p>
+          Our mission is to provide a safe, modern, and enjoyable online
+          shopping experience where customers can find everything they need —
+          all in one place.
+        </p>
+
+        <h2>Why Choose Us?</h2>
+        <ul>
+          <li>
+            <strong>Quality Assurance:</strong> Every item is carefully checked
+            before shipping.
+          </li>
+          <li>
+            <strong>Customer First:</strong> Your satisfaction drives every
+            decision we make.
+          </li>
+          <li>
+            <strong>Secure Shopping:</strong> We use trusted and encrypted
+            payment systems.
+          </li>
+          <li>
+            <strong>Wide Variety:</strong> Browse thousands of trending and
+            essential products.
+          </li>
+        </ul>
+
+        <h2>Our Story</h2>
+        <p>
+          We started with a simple idea — to make online shopping easier,
+          faster, and more reliable. Today, we’re proud to serve thousands of
+          customers who trust us to deliver quality and value every day.
+        </p>
+
+        <p>
+          Got questions or need help with your order? Our support team is here
+          for you.<br />
+          Email:
+          <a href="mailto:support@cartify.com">support@cartify.com</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="i1">
+        <p>&copy; 2025 Ecommerce. All rights reserved.</p>
+      </div>
+
+      <div class="social-links">
+        <a href="https://github.com/" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+
+        <a href="https://www.linkedin.com/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </div>
+    </footer>
+  </body>
+</html>

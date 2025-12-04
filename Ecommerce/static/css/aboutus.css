@@ -1,0 +1,84 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: rgb(47, 47, 82);
+  top: 0;
+  position: sticky;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 80px;
+}
+
+.logo img {
+  left: 0;
+  height: 80px;
+}
+
+.navi a {
+  right: 0;
+  font-size: 22px;
+  color: white;
+  text-decoration: none;
+  margin: 0px 10px;
+}
+
+.nav-links a:hover {
+  color: rgb(180, 180, 255);
+}
+
+.main-content {
+  padding: 40px 20px;
+  font-family: "Poppins", Arial, sans-serif;
+}
+
+.about-section {
+  max-width: 800px;
+  margin: auto;
+  line-height: 1.8;
+  color: #333;
+}
+
+.about-section h1 {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.about-section h2 {
+  margin-top: 30px;
+  font-size: 24px;
+  color: #222;
+}
+
+.about-section ul {
+  margin-left: 20px;
+}
+
+.about-section a {
+  color: #ff6600;
+  text-decoration: none;
+}
+
+.about-section a:hover {
+  text-decoration: underline;
+}
+
+footer {
+  background-color: rgb(47, 47, 82);
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 18px;
+  color: white;
+  bottom: 0;
+}
+
+.social-links a {
+  padding: 0px 10px;
+}
