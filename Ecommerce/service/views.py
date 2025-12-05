@@ -17,20 +17,20 @@ def login(request):
                     messages.error(request, "Please check the password and try again")
                     return render(request, "login.html")
                 elif obj.passkey == password:
-                    print("hi\n"*23)
                     if obj.utype == "Vendor":
                         request.session['uid'] = obj.uid
+                        request.session['uname'] = obj.uname
                         request.session['user_type'] = "Vendor"
                         return redirect('ven_dashboard')
                     if obj.utype == "Customer":
                         request.session['uid'] = obj.uid
+                        request.session['uname'] = obj.uname
                         request.session['user_type'] = "Customer"
                         return redirect('cust_dashboard')
         except Exception as e:
             messages.error(request, "please check the email")
             messages.error(request, "please try again email not found")
             return render(request, "login.html")
-    print("hi\n"*23)
     return render(request, "login.html")
 
 def register(request):

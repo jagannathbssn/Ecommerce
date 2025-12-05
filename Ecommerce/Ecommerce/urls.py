@@ -32,9 +32,14 @@ urlpatterns = [
     path('contact/', v1.contact, name='contact'),
     path('aboutus/', v1.aboutus, name='aboutus'),
 
-    path('cutomer/customer_dashboard/', v2.cust_dashboard, name='cust_dashboard'),
+    path('cutomer/customer-dashboard/', v2.cust_dashboard, name='cust_dashboard'),
 
-    path('vendor/vendor_dashboard/', v3.ven_dashboard, name='ven_dashboard'),    
+    path('vendor/vendor-dashboard/', v3.ven_dashboard, name='ven_dashboard'),
+    path('vendor/mangae-products/', v3.manage_pro, name="manage_pro"),
+    path('vendor/add-new-products/', v3.add_pro, name="add_pro"),
+    path('vendor/manage-orders/', v3.orders, name="orders"),
+    path('vendor/vendor-profile', v3.vprofile, name='vprofile'),
+
 ]
 
 if settings.DEBUG:
