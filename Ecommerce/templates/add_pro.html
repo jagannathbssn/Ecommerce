@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cartify</title>
-    <link rel="stylesheet" href="{% static 'css/v_dash.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/add_pro.css' %}" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -31,9 +31,101 @@
 
     <main class="main-content">
       <center>
-        <h1>This is the vendor dashboard</h1>
+        <h1>Add New Product</h1>
       </center>
-      <div>Welcome, {{ request.session.uname }}.</div>
+      <div>
+        <h2>Welcome, {{ request.session.uname }}.</h2>
+      </div>
+      <div>
+        <fieldset>
+          <legend>Enter Product details</legend>
+          <form
+            action="{% url 'add_pro' %}"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <input
+              id="vendor_id"
+              type="text"
+              name="vendor_id"
+              value="{{ request.session.uid }}"
+              hidden
+            />
+
+            <label for="pname">Product Name : </label>
+            <input
+              type="text"
+              name="pname"
+              id="name"
+              placeholder="please enter product name"
+              required
+            />
+            <br />
+
+            <label for="type">Product Type : </label>
+            <select name="type" id="type" required>
+              <option value="">please select</option>
+              {% for i in cat %}
+              <option value="{{i}}">{{i}}</option>
+              {% endfor %}
+            </select>
+
+            <div id="subtype">
+              <label for="stype">Sub-type : </label>
+              <select name="stype" id="stype" required>
+                <option value="">please select</option>
+                {% for i in obj %} {% for j in i.stypes %}
+                <option class="{{i.type}}" value="{{j}}">{{j}}</option>
+                {% endfor %} {% endfor %}
+                <option value=""></option>
+              </select>
+            </div>
+
+            <div id="o_pty">
+              <label for="o_stype">Product Type : </label>
+              <input
+                type="text"
+                name="o_stype"
+                id="o_stype"
+                placeholder="Please Specify type of the product"
+              />
+            </div>
+            <br />
+
+            <label for="price">Price : </label>
+            <input
+              type="number"
+              name="price"
+              id="price"
+              placeholder="please enter the price"
+              required
+            />
+            <br />
+
+            <label for="specs"
+              >Configuration / Specifications / Features :
+            </label>
+            <input type="text" id="specs" name="specs" hidden />
+
+
+            <br />
+            <label for="descp">Description : </label>
+            <br />
+            <textarea
+              name=""
+              id=""
+              cols="30"
+              rows="10"
+              placeholder="please enter the product description"
+            >
+            </textarea>
+            <br/>
+
+            <br />
+            <hr />
+          </form>
+        </fielset>
+      </div>
     </main>
 
     <footer class="footer">
@@ -52,4 +144,5 @@
       </div>
     </footer>
   </body>
+  <script src="{% static 'js/add_pro.js' %}"></script>
 </html>

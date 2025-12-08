@@ -23,3 +23,8 @@ class Product(models.Model):
         upload_to = rename,
         force_format = "PNG"
     )
+
+class Types(models.Model):
+    id = models.AutoField(primary_key=True)
+    type = models.CharField(max_length=75, null=False)
+    stypes = models.JSONField(default=list, null=False)
