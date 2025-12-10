@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cartify</title>
     <link rel="stylesheet" href="{% static 'css/add_pro.css' %}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
   </head>
   <body>
     <header class="header">
@@ -30,72 +33,143 @@
       </center>
       <div>
         <h2>Welcome, {{ request.session.uname }}.</h2>
+        {% if messages %} {% for message in messages %}
+        <p id="msg">{{ message }}</p>
+        {% endfor %} {% endif %}
       </div>
       <div>
         <fieldset>
           <legend>Enter Product details</legend>
-          <form id="prod_add" action="{% url 'add_pro' %}" method="post" enctype="multipart/form-data">
+          <form
+            id="prod_add"
+            action="{% url 'add_pro' %}"
+            method="post"
+            enctype="multipart/form-data"
+          >
             {% csrf_token %}
-            <input id="vendor_id" type="text" name="vendor_id" value="{{ request.session.uid }}" hidden />
+            <input
+              id="vendor_id"
+              type="text"
+              name="vendor_id"
+              value="{{ request.session.uid }}"
+              hidden
+            />
             <label for="pname">Product Name : </label>
-            <input type="text" name="pname" id="name" placeholder="please enter product name" required />
+            <input
+              type="text"
+              name="pname"
+              id="name"
+              placeholder="please enter product name"
+              required
+            />
             <br />
             <label for="type">Product Type : </label>
             <select name="type" id="type" required>
-              <option value="">please select</option> {% for i in cat %} <option value="{{i}}">{{i}}</option> {% endfor %}
+              <option value="">please select</option>
+              {% for i in cat %}
+              <option value="{{i}}">{{i}}</option>
+              {% endfor %}
             </select>
             <div id="subtype">
               <label for="stype">Sub-type : </label>
-              <select name="stype" id="stype" required>
-                <option value="">please select</option> {% for i in obj %} {% for j in i.stypes %} <option class="{{i.type}}" value="{{j}}">{{j}}</option> {% endfor %} {% endfor %} <option value=""></option>
+              <select name="stype" id="stype">
+                <option value="">please select</option>
+                {% for i in obj %} {% for j in i.stypes %}
+                <option class="{{i.type}}" value="{{j}}">{{j}}</option>
+                {% endfor %} {% endfor %}
+                <option value=""></option>
               </select>
             </div>
             <div id="o_pty">
               <label for="o_stype">Product Type : </label>
-              <input type="text" name="o_stype" id="o_stype" placeholder="Please Specify type of the product" />
+              <input
+                type="text"
+                name="o_stype"
+                id="o_stype"
+                placeholder="Please Specify type of the product"
+              />
             </div>
             <br />
             <label for="price">Price : </label>
-            <input type="number" name="price" id="price" placeholder="please enter the price" required />
+            <input
+              type="number"
+              name="price"
+              id="price"
+              placeholder="please enter the price"
+              required
+            />
             <br />
             <label for="stock">Stock : </label>
-            <input type="number" name="stock" id="stock" placeholder="please enter the stock" required />
+            <input
+              type="number"
+              name="stock"
+              id="stock"
+              placeholder="please enter the stock"
+              required
+            />
             <br />
-            <label for="specs">Configuration / Specifications / Features : </label>
+            <label for="specs"
+              >Configuration / Specifications / Features :
+            </label>
             <input type="text" id="specs" name="specs" hidden />
-            <b><p>For example : </p></b>
-            <p>Color : Red</p><p>Size : 11</p><p>Warrenty : 1year</p>
+            <b><p>For example :</p></b>
+            <p>Color : Red</p>
+            <p>Size : 11</p>
+            <p>Warrenty : 1year</p>
             <div id="config">
-              <input id="spec_fea" type="text" placeholder="Enter the Feature">
+              <input
+                id="spec_fea"
+                type="text"
+                placeholder="Enter the Feature"
+              />
               :
-              <input type="text" id="spec_val" placeholder="Enter the Value">
-              <input type="button" onclick="add_spec()" value="Add this Specification">
+              <input type="text" id="spec_val" placeholder="Enter the Value" />
+              <input
+                type="button"
+                onclick="add_spec()"
+                value="Add this Specification"
+              />
               <p id="spec_err"></p>
               <ul id="spec_lists"></ul>
             </div>
             <br />
             <label for="descp">Description : </label>
             <br />
-            <textarea name="descp" id="descp" cols="30" rows="10" placeholder="please enter the product description"></textarea>
+            <textarea
+              name="descp"
+              id="descp"
+              cols="30"
+              rows="10"
+              placeholder="please enter the product description"
+            ></textarea>
             <br />
             <label for="keyp">Key Points : </label>
-            <input type="text" name="keyp" id="keyp" hidden>
+            <input type="text" name="keyp" id="keyp" hidden />
             <div id="key_po">
-              <input type="text" id="key_point" placeholder="please enter key point" />
-              <input type="button" id="ad_key_po" onclick="add_key()" value="Add a key Point">
+              <input
+                type="text"
+                id="key_point"
+                placeholder="please enter key point"
+              />
+              <input
+                type="button"
+                id="ad_key_po"
+                onclick="add_key()"
+                value="Add a key Point"
+              />
               <p id="err"></p>
               <ul id="key_points"></ul>
             </div>
             <br />
             <label for="pho">Product Photo : </label>
-            <input type="file" name="pho" id="pho" accept="image/*" required>
-            <img id="preview" alt="img" style="width:150px; height:auto;">
+            <input type="file" name="pho" id="pho" accept="image/*" required />
+            <img id="preview" alt="img" style="width: 150px; height: auto" />
             <br />
             <hr />
-            <input type="submit" value="ADD">
-            <input type="reset" value="Clear">
+            <input type="submit" value="ADD" />
+            <input type="reset" value="Clear" />
           </form>
-          </fielset>
+        </fieldset>
       </div>
     </main>
     <footer class="footer">

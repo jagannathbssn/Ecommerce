@@ -34,6 +34,10 @@ header {
 .main-content {
 }
 
+#msg {
+  color: red;
+}
+
 footer {
   background-color: rgb(47, 47, 82);
   display: flex;

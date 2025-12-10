@@ -160,7 +160,7 @@ document.getElementById("pho").addEventListener("change", function (e) {
   img.style.display = "block";
 });
 
-document.getElementById("prod_add").addEventListener("submit", (e) => {
+document.getElementById("prod_add").addEventListener("submit", function (e) {
   e.preventDefault();
   if (bit_che === -1) {
     document.getElementById("spec_err").innerText =
@@ -179,18 +179,26 @@ document.getElementById("prod_add").addEventListener("submit", (e) => {
     return;
   }
 
-  let temp_spec_json = "{";
-  let sp_json = document.getElementById("spec_val");
+  let temp_spec_json = {};
+  let sp_json = document.getElementById("specs");
   let sp_li = document.querySelectorAll("#spec_lists li");
-  sp_li.forEach((item, index) => {
-    console.log("fjdbjdhjhb");
+  sp_li.forEach((item) => {
     let te = item.getElementsByTagName("input");
     let te1 = te[0].value.trim();
     let te2 = te[1].value.trim();
-    te = `"${te1}":"${te2}"`;
-    temp_spec_json += ",";
+    temp_spec_json[te1] = te2;
   });
-  temp_spec_json.slice(0, -1);
-  temp_spec_json += "}";
-  console.log(temp_spec_json);
+  sp_json.value = JSON.stringify(temp_spec_json);
+
+  let keyp = [];
+  let kp_arr = document.getElementById("keyp");
+  let kp_li = document.querySelectorAll("#key_points li");
+  kp_li.forEach((item) => {
+    let te = item.getElementsByTagName("input");
+    let te1 = te[0].value.trim();
+    keyp.push(te1);
+  });
+  kp_arr.value = JSON.stringify(keyp);
+
+  e.target.submit();
 });
