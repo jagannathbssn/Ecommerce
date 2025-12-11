@@ -19,7 +19,7 @@
 
       <div class="navi">
         <nav class="nav-links">
-          <a href="{% url 'manage_pro' %}">Manage your products</a>
+          <a href="{% url 'manage_products' %}">Manage your products</a>
           <a href="{% url 'add_pro' %}">Add new product</a>
           <a href="{% url 'orders' %}">Manage Orders</a>
           <a href="{% url 'contact' %}">Contact Us</a>
@@ -31,7 +31,7 @@
 
     <main class="main-content">
       <center>
-        <h1>This is the vendor dashboard</h1>
+        <h1>This is the vendor dashboard {{ request.session.uid }}</h1>
       </center>
       <div>Welcome, {{ request.session.uname }}.</div>
     </main>

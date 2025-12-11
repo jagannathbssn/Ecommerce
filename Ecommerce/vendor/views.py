@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.db.models import Q
+from django.http import JsonResponse
+
 from service.decorators import vendor_login
 
 from vendor.models import Types, Product
@@ -13,8 +16,66 @@ def ven_dashboard(request):
     return render(request, 'ven_dashboard.html')
 
 @vendor_login
+def manage_products(request):
+    return render(request, 'manage_pro.html')
+
+@vendor_login
 def manage_pro(request):
-    return render(request, "manage_pro.html")
+    ven_id = request.session.get('uid')
+
+    draw = int(request.GET.get('draw', 1))
+    start = int(request.GET.get('start', 0))
+    length = int(request.GET.get('length', 10))
+    search_data = request.GET.get("search[value]", "")
+    order_columns = int(request.GET.get('order[0][column]', 0))
+    order_dir = request.GET.get('order[0][dir]', 'asc')
+
+    columns = ['pname', 'ptype', 'price', 'stock', 'photo']
+    order_field = columns[order_columns]
+    if order_dir == 'desc':
+        order_field = '-' + order_field
+
+    qr = Product.objects.filter(vid = ven_id)
+    if search_data:
+        qr = qr.filter(Q(pname__icontains = search_data) 
+                    | Q(ptype__icontains = search_data) 
+                    | Q(pdesc__icontains = search_data)
+                    | Q(specs__icontains = search_data))
+    
+    total_count = Product.objects.filter(vid = ven_id).count()
+    field_count = qr.count()
+
+    
+
+    qr = qr.order_by(order_field)[start:start+length]
+    p_data =[]
+    sno = start + 1
+    ind = 0
+  
+    for q in qr:
+        p_data.append({
+        'sno' : sno + ind,
+        'name' : q.pname,
+        'type' : q.ptype,
+        'price': q.price,
+        'stock': q.stock,
+        'image': f"<img src='/media/{q.photo}' alt='image loading...' width='70px' />" 
+                    if q.photo else "No image Found",
+        'operations': (
+            f"<a href='#'>Update</a>"
+            f"/"
+            f"<a href='#'>Delete</a>"
+        ),
+        })
+        
+        ind += 1
+
+    return JsonResponse({
+        'draw': draw,
+        'recordsTotal': total_count,
+        'recordsFiltered': field_count,
+        'data': p_data
+    })
 
 @vendor_login
 def add_pro(request):
@@ -62,6 +123,10 @@ def add_pro(request):
         return redirect(manage_pro)
     else:
         return render(request, 'add_pro.html', data)
+    
+@vendor_login
+def update_pro(request):
+    return render(request, 'update_pro.html')
 
 @vendor_login
 def orders(request):

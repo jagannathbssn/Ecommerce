@@ -35,8 +35,10 @@ urlpatterns = [
     path('cutomer/customer-dashboard/', v2.cust_dashboard, name='cust_dashboard'),
 
     path('vendor/vendor-dashboard/', v3.ven_dashboard, name='ven_dashboard'),
-    path('vendor/mangae-products/', v3.manage_pro, name="manage_pro"),
+    path('vendor/manage/products', v3.manage_products, name="manage_products"),
+    path('vendor/mangae/products/api', v3.manage_pro, name="manage_pro"),
     path('vendor/add-new-products/', v3.add_pro, name="add_pro"),
+    path('vendor/update-product-details', v3.update_pro, name="update_pro"),
     path('vendor/manage-orders/', v3.orders, name="orders"),
     path('vendor/vendor-profile', v3.vprofile, name='vprofile'),
 

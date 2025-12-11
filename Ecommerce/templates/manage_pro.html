@@ -5,10 +5,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cartify</title>
-    <link rel="stylesheet" href="{% static 'css/v_dash.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/manage_pro.css' %}" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"
     />
   </head>
   <body>
@@ -19,7 +23,7 @@
 
       <div class="navi">
         <nav class="nav-links">
-          <a href="{% url 'manage_pro' %}">Manage your products</a>
+          <a href="{% url 'manage_products' %}">Manage your products</a>
           <a href="{% url 'add_pro' %}">Add new product</a>
           <a href="{% url 'orders' %}">Manage Orders</a>
           <a href="{% url 'contact' %}">Contact Us</a>
@@ -36,8 +40,24 @@
       <div>
         <h2>Welcome, {{ request.session.uname }}.</h2>
         {% if messages %} {% for i in messages %}
-        <p>{{i}}</p>
+        <p id="msg">{{i}}</p>
         {% endfor %} {% endif %}
+      </div>
+      <div>
+        <table id="pro_table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Product Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Photo</th>
+              <th>Operations</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
       </div>
     </main>
 
@@ -57,4 +77,27 @@
       </div>
     </footer>
   </body>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#pro_table").DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+          url: "{% url 'manage_pro' %}",
+          type: "GET",
+        },
+        columns: [
+          { data: "sno" },
+          { data: "name" },
+          { data: "type" },
+          { data: "price" },
+          { data: "stock" },
+          { data: "image" },
+          { data: "operations" },
+        ],
+      });
+    });
+  </script>
 </html>
