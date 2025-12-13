@@ -62,9 +62,9 @@ def manage_pro(request):
         'image': f"<img src='/media/{q.photo}' alt='image loading...' width='70px' />" 
                     if q.photo else "No image Found",
         'operations': (
-            f"<a href='#'>Update</a>"
+            f"<a href='/vendor/update-product-details/{q.pid}/'>Update</a>"
             f"/"
-            f"<a href='#'>Delete</a>"
+            f"<a href='/vendor/delete-product/{q.pid}/'>Delete</a>"
         ),
         })
         
@@ -125,8 +125,35 @@ def add_pro(request):
         return render(request, 'add_pro.html', data)
     
 @vendor_login
-def update_pro(request):
-    return render(request, 'update_pro.html')
+def delete_pro(request, id):
+    obj = Product.objects.get(pid = id)
+    uid = request.session.get('uid')
+
+    if obj.vid.uid == uid:
+        obj.delete()
+        return redirect(manage_products)
+    else:
+        messages.error(request, "the product does not exists in your inventory")
+        return redirect(ven_dashboard)
+    
+@vendor_login
+def update_pro(request, id):
+        
+        obj = Product.objects.get(pid = id)
+        uid = request.session.get('uid')
+
+        if obj.vid.uid == uid:
+            data = {}
+            cat = Types.objects.values_list('type', flat=True)
+            data['cat'] = cat
+            opt = Types.objects.all()
+            data['obj1'] = opt
+            data['obj'] = obj
+            return render(request, 'update_pro.html', data)
+        else:
+            messages.error(request, "the product does not exists in your inventory")
+            return redirect(ven_dashboard)
+
 
 @vendor_login
 def orders(request):

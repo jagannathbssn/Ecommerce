@@ -62,6 +62,12 @@ function add_key() {
         inp.readOnly = false;
         relate++;
       } else if (rel === 1) {
+        if (inp.value.trim() === "") {
+          document.getElementById("err").innerText =
+            "*please check the keypoint";
+          return;
+        }
+        document.getElementById("err").innerText = "";
         rel--;
         save_edit.textContent = "Edit";
         inp.readOnly = true;
@@ -125,6 +131,12 @@ function add_spec() {
         spec_save_edit.textContent = "Save";
         bit_che++;
       } else if (bit === 1) {
+        if (feat.value.trim() === "" || val.value.trim() === "") {
+          document.getElementById("spec_err").innerText =
+            "*Please check values shouldn't be empty";
+          return;
+        }
+        document.getElementById("spec_err").innerText = "";
         bit--;
         feat.readOnly = true;
         val.readOnly = true;

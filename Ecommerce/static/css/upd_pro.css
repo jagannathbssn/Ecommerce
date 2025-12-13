@@ -1,0 +1,52 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: rgb(47, 47, 82);
+  top: 0;
+  position: sticky;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 80px;
+}
+
+.logo img {
+  left: 0;
+  height: 80px;
+}
+
+.navi a {
+  right: 0;
+  font-size: 22px;
+  color: white;
+  text-decoration: none;
+  margin: 0px 10px;
+}
+
+.nav-links a:hover {
+  color: rgb(180, 180, 255);
+}
+
+.main-content {
+  height: auto;
+}
+
+footer {
+  background-color: rgb(47, 47, 82);
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 18px;
+  color: white;
+  bottom: 0;
+}
+
+.social-links a {
+  padding: 0px 10px;
+}

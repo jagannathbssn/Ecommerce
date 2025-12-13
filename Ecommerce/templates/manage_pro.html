@@ -80,24 +80,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
   <script>
-    $(document).ready(function () {
-      $("#pro_table").DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: {
-          url: "{% url 'manage_pro' %}",
-          type: "GET",
-        },
-        columns: [
-          { data: "sno" },
-          { data: "name" },
-          { data: "type" },
-          { data: "price" },
-          { data: "stock" },
-          { data: "image" },
-          { data: "operations" },
-        ],
-      });
-    });
+    var ajax_url = "{% url 'manage_pro' %}";
   </script>
+  <script src="{% static 'js/manage_pro.js' %}"></script>
 </html>

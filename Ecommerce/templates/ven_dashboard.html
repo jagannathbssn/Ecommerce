@@ -30,8 +30,11 @@
     </header>
 
     <main class="main-content">
+      {% if messages %} {% for i in messages %}
+      <p>{{i}}</p>
+      {% endfor %} {% endif %}
       <center>
-        <h1>This is the vendor dashboard {{ request.session.uid }}</h1>
+        <h1>This is the vendor dashboard</h1>
       </center>
       <div>Welcome, {{ request.session.uname }}.</div>
     </main>
