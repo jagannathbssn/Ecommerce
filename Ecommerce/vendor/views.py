@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
 from django.http import JsonResponse
+from django.core.files.storage import FileSystemStorage
 
 from service.decorators import vendor_login
 
@@ -120,7 +121,7 @@ def add_pro(request):
         except:
             messages.error(request, "Some error has occured, please try again")
             return render(request, 'add_pro.html', data)
-        return redirect(manage_pro)
+        return redirect(manage_products)
     else:
         return render(request, 'add_pro.html', data)
     
@@ -143,6 +144,18 @@ def update_pro(request, id):
         uid = request.session.get('uid')
 
         if obj.vid.uid == uid:
+            if request.method == "POST":
+                pname = request.POST.get('pname')
+                ptype = request.POST.get('type')
+
+                pstype = request.POST.get('stype')
+                ostype = request.POST.get('o_stype')
+
+                price = request.POST.get('price')
+                stock = request.POST.get('stock')
+                descp = request.POST.get('descp')
+                
+
             data = {}
             cat = Types.objects.values_list('type', flat=True)
             data['cat'] = cat
