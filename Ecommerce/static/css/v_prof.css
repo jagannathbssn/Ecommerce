@@ -35,6 +35,20 @@ header {
   min-height: 75vh;
 }
 
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 60px;
+}
+
+.profile-header h2 {
+  position: absolute;
+  right: 20px;
+  margin: 0;
+}
+
 footer {
   background-color: rgb(47, 47, 82);
   display: flex;

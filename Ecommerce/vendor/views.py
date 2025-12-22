@@ -224,4 +224,5 @@ def vprofile(request):
 
 @vendor_login
 def vlogout(request):
+    request.session.flush()
     return redirect('home')

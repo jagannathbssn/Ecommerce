@@ -31,7 +31,11 @@
 
     <main class="main-content">
       <center>
-        <h1>Profile Page</h1>
+        <div class="profile-header">
+          <h1>Profile Page</h1>
+          <h2><a href="{% url 'vlogout' %}">Logout</a></h2>
+        </div>
+
         {% if messages %} {% for i in messages %}
         <p>{{i}}</p>
         {% endfor %} {% endif %}

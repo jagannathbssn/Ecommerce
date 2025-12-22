@@ -42,6 +42,7 @@ urlpatterns = [
     path('vendor/delete-product/<int:id>/', v3.delete_pro, name="delete_pro"),
     path('vendor/manage-orders/', v3.orders, name="orders"),
     path('vendor/vendor-profile/', v3.vprofile, name='vprofile'),
+    path('vendor/logout', v3.vlogout, name='vlogout'),
 
 ]
 
