@@ -1,193 +1,151 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cartify</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="{% static 'css/upd_pro.css' %}" />
-</head>
-
-<body>
+  </head>
+  <body>
     <header class="header">
-        <div class="logo">
-            <img src="{% static 'images/logo.png' %}" alt="Logo" />
-        </div>
-
-        <div class="navi">
-            <nav class="nav-links">
-                <a href="{% url 'manage_products' %}">Manage your products</a>
-                <a href="{% url 'add_pro' %}">Add new product</a>
-                <a href="{% url 'orders' %}">Manage Orders</a>
-                <a href="{% url 'contact' %}">Contact Us</a>
-                <a href="{% url 'aboutus' %}">About Us</a>
-                <a href="{% url 'vprofile' %}">hi, {{ request.session.uname }}</a>
-            </nav>
-        </div>
+      <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="Logo" />
+      </div>
+      <div class="navi">
+        <nav class="nav-links">
+          <a href="{% url 'manage_products' %}">Manage your products</a>
+          <a href="{% url 'add_pro' %}">Add new product</a>
+          <a href="{% url 'orders' %}">Manage Orders</a>
+          <a href="{% url 'contact' %}">Contact Us</a>
+          <a href="{% url 'aboutus' %}">About Us</a>
+          <a href="{% url 'vprofile' %}">hi, {{ request.session.uname }}</a>
+        </nav>
+      </div>
     </header>
-
     <main class="main-content">
-        <center>
-            <h1>Product Details</h1>
-        </center>
-        <div>Welcome, {{ request.session.uname }}.</div>
-
-        <div>
-            <form id="upt_form" action="" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="hidden" name="pro_id" value="{{ obj.pid }}" />
-                <input type="hidden" name="vendor_id" value="{{ request.session.uid }}" />
-
-                <!-- Product Name -->
-                <div>
-                    <label for="pname">Product Name: </label>
-                    <input type="text" name="pname" id="pname" value="{{ obj.pname }}" readonly
-                        onkeypress="handleKeyPress(event, this)" />
-                    <input type="button" value="Edit" onclick="chan(this)" />
-                    <p class="s_err_msg"></p>
-                </div>
-                <br />
-
-                <!-- Product Type Display -->
-                <div id="displayDiv">
-                    <label>Product Type:
-                        <input type="text" id="dispType" value="{{ obj.ptype }}" readonly />
-                    </label>
-                    <br />
-                    <label>Product Sub-Type:
-                        <input type="text" id="dispSubType" value="{{ obj.pstype }}" readonly />
-                    </label>
-                </div>
-
-                <!-- Product Type Edit -->
-                <div id="editDiv">
-                    <label for="type">Product Type: </label>
-                    <select name="type" id="type" required>
-                        <option value="">please select</option>
-                        {% for i in cat %}
-                        <option value="{{ i }}" {% if i == obj.ptype %}selected{% endif %}>{{ i }}</option>
-                        {% endfor %}
-                    </select>
-
-                    <div id="subtype">
-                        <label for="stype">Sub-type: </label>
-                        <select name="stype" id="stype">
-                            <option value="">please select</option>
-                            {% for i in obj1 %}
-                                {% for j in i.stypes %}
-                                    <option class="{{ i.type }}" value="{{ j }}" {% if j == obj.pstype %}selected{% endif %}>{{ j }}</option>
-                                {% endfor %}
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div id="o_pty">
-                        <label for="o_stype">Product Type: </label>
-                        <input type="text" name="o_stype" id="o_stype" value="{{ obj.pstype }}"
-                            placeholder="Please Specify type of the product" />
-                    </div>
-
-                    <p id="msg2"></p>
-                </div>
-
-                <input type="button" id="typeEditBtn" value="Edit" />
-
-                <!-- Price -->
-                <div>
-                    <label for="price">Price: </label>
-                    <input type="number" name="price" id="price" value="{{ obj.price }}" readonly
-                        onkeypress="handleKeyPress(event, this)" />
-                    <input type="button" value="Edit" onclick="chan(this)" />
-                    <p class="s_err_msg"></p>
-                </div>
-                <br />
-
-                <!-- Stock -->
-                <div>
-                    <label for="stock">Stock: </label>
-                    <input type="number" name="stock" id="stock" value="{{ obj.stock }}" readonly
-                        onkeypress="handleKeyPress(event, this)" />
-                    <input type="button" value="Edit" onclick="chan(this)" />
-                    <p class="s_err_msg"></p>
-                </div>
-                <br />
-
-                <!-- Configuration / Specifications -->
-                <label for="specs">Configuration / Specifications / Features:</label>
-                <input type="hidden" id="specs" name="specs" />
-                <div id="config">
-                    <input id="spec_fea" type="text" placeholder="Enter the Feature" /> :
-                    <input type="text" id="spec_val" placeholder="Enter the Value" />
-                    <input type="button" onclick="add_spec()" value="Add this Specification" />
-                    <p id="spec_err"></p>
-                    <ul id="spec_lists"></ul>
-                </div>
-                <br />
-
-                <!-- Description -->
-                <div>
-                    <label for="descp">Description: </label><br />
-                    <textarea name="descp" id="descp" cols="30" rows="10" placeholder="please enter the product description" readonly
-                        onkeypress="handleKeyPress(event, this)">{{ obj.pdesc }}</textarea>
-                    <input type="button" value="Edit" onclick="fun(this, 'descp')" />
-                    <p class="s_err_msg"></p>
-                </div>
-                <br />
-
-                <!-- Key Points -->
-                <label for="keyp">Key Points: </label>
-                <input type="hidden" name="keyp" id="keyp" />
-                <div id="key_po">
-                    <input type="text" id="key_point" placeholder="please enter key point" />
-                    <input type="button" id="ad_key_po" onclick="add_key()" value="Add a key Point" />
-                    <p id="err"></p>
-                    <ul id="key_points"></ul>
-                </div>
-                <br />
-                <hr />
-                <p id="msg1"></p>
-
-                <!-- Product Image -->
-                <div>
-                    <label>Product Image:</label><br>
-                    {% if obj.photo %}
-                        <img src="{{ obj.photo.url }}" alt="{{ obj.pname }}" width="200">
-                    {% else %}
-                        <p>No image available</p>
-                    {% endif %}
-                </div>
-
-                <div>
-                    <label for="new_photo">New Photo: </label>
-                    <input type="file" name="new_photo"id="new_photo" accept="image/*" />
-                    <div id="preview_container">
-                      <img id="preview_image" src="" alt="Image Preview" style="max-width: 200px; display: none; margin-top: 10px;" />
-                    </div>
-                </div>
-
-                <input type="submit" id="sub_up" value="Update" />
-                <input type="reset" value="Clear" />
-            </form>
-        </div>
+      <center>
+        <h1>Product Details</h1>
+      </center>
+      <div>Welcome, {{ request.session.uname }}.</div>
+      <div>
+        <form id="upt_form" action="{% url 'update_pro' obj.pid %}" method="post" enctype="multipart/form-data"> {% csrf_token %} <input type="hidden" name="pro_id" value="{{ obj.pid }}" />
+          <input type="hidden" name="vendor_id" value="{{ request.session.uid }}" />
+          <div>
+            <label for="pname">Product Name: </label>
+            <input type="text" name="pname" id="pname" value="{{ obj.pname }}" readonly />
+            <input type="button" value="Edit" onclick="chan(this)" />
+            <p class="s_err_msg"></p>
+          </div>
+          <br />
+          <div id="displayDiv">
+            <label>Product Type: <input type="text" id="dispType" value="{{ obj.ptype }}" readonly />
+            </label>
+            <br />
+            <label>Product Sub-Type: <input type="text" id="dispSubType" value="{{ obj.pstype }}" readonly />
+            </label>
+          </div>
+          <div id="editDiv">
+            <label for="type">Product Type: </label>
+            <select name="type" id="type">
+              <option value="">please select</option> {% for i in cat %} <option value="{{ i }}" {% if i == obj.ptype %}selected{% endif %}>{{ i }}</option> {% endfor %}
+            </select>
+            <div id="subtype">
+              <label for="stype">Sub-type: </label>
+              <select name="stype" id="stype">
+                <option value="">please select</option> {% for i in obj1 %} {% for j in i.stypes %} <option class="{{ i.type }}" value="{{ j }}" {% if j == obj.pstype %}selected{% endif %}>{{ j }}</option> {% endfor %} {% endfor %}
+              </select>
+            </div>
+            <div id="o_pty">
+              <label for="o_stype">Product Type: </label>
+              <input type="text" name="o_stype" id="o_stype" placeholder="Please Specify type of the product" />
+            </div>
+            <p id="msg2"></p>
+          </div>
+          <input type="button" id="typeEditBtn" value="Edit" />
+          <br />
+          <br />
+          <div>
+            <label for="price">Price: </label>
+            <input type="number" name="price" id="price" value="{{ obj.price }}" readonly />
+            <input type="button" value="Edit" onclick="chan(this)" />
+            <p class="s_err_msg"></p>
+          </div>
+          <br />
+          <div>
+            <label for="stock">Stock: </label>
+            <input type="number" name="stock" id="stock" value="{{ obj.stock }}" readonly />
+            <input type="button" value="Edit" onclick="chan(this)" />
+            <p class="s_err_msg"></p>
+          </div>
+          <br />
+          <label for="specs">Configuration / Specifications / Features:</label>
+          <input type="hidden" id="specs" name="specs" />
+          <div id="config">
+            <input id="spec_fea" type="text" placeholder="Enter the Feature" /> : <input type="text" id="spec_val" placeholder="Enter the Value" />
+            <input type="button" onclick="add_spec()" value="Add this Specification" />
+            <p id="spec_err"></p>
+            <ul id="spec_lists"></ul>
+          </div>
+          <br />
+          <div>
+            <label for="descp">Description: </label>
+            <br />
+            <textarea name="descp" id="descp" cols="30" rows="10" placeholder="please enter the product description" readonly>{{ obj.pdesc }}</textarea>
+            <br />
+            <input type="button" value="Edit" onclick="fun(this, 'descp')" />
+            <p class="s_err_msg"></p>
+          </div>
+          <br />
+          <label for="keyp">Key Points: </label>
+          <input type="hidden" name="keyp" id="keyp" />
+          <div id="key_po">
+            <input type="text" id="key_point" placeholder="please enter key point" />
+            <input type="button" id="ad_key_po" onclick="add_key()" value="Add a key Point" />
+            <p id="err"></p>
+            <ul id="key_points"></ul>
+          </div>
+          <br />
+          <hr />
+          <p id="msg1"></p>
+          <div>
+            <label>Product Image:</label>
+            <br> {% if obj.photo %} <img src="{{ obj.photo.url }}" alt="{{ obj.pname }}" width="200"> {% else %} <p>No image available</p> {% endif %}
+          </div>
+          <div>
+            <label for="new_photo">New Photo: </label>
+            <input type="file" name="new_photo" id="new_photo" accept="image/*" />
+            <div id="preview_container">
+              <img id="preview_image" src="" alt="Image Preview" style="max-width: 200px; display: none; margin-top: 10px;" />
+            </div>
+          </div>
+          <input type="hidden" name="pname1" id="pname1" />
+          <input type="hidden" name="dispType1" id="dispType1" />
+          <input type="hidden" name="dispSubType1" id="dispSubType1" />
+          <input type="hidden" name="price1" id="price1" />
+          <input type="hidden" name="stock1" id="stock1" />
+          <input type="hidden" name="descp1" id="descp1" />
+          <input type="submit" id="sub_up" value="Update" />
+          <input type="reset" value="Clear" />
+        </form>
+      </div>
     </main>
-
     <footer class="footer">
-        <div class="i1">
-            <p>&copy; 2025 Ecommerce. All rights reserved.</p>
-        </div>
-
-        <div class="social-links">
-            <a href="https://github.com/" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin"></i></a>
-        </div>
+      <div class="i1">
+        <p>&copy; 2025 Ecommerce. All rights reserved.</p>
+      </div>
+      <div class="social-links">
+        <a href="https://github.com/" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </div>
     </footer>
-
     {{ obj.specs|json_script:"sp_json" }}
     {{ obj.key_pnt|json_script:"ke_json" }}
-
     <script src="{% static 'js/update_pro.js' %}"></script>
-</body>
-
+  </body>
 </html>

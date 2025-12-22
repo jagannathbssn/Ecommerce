@@ -140,33 +140,51 @@ def delete_pro(request, id):
 @vendor_login
 def update_pro(request, id):
         
-        obj = Product.objects.get(pid = id)
-        uid = request.session.get('uid')
+    obj = Product.objects.get(pid = id)
+    uid = request.session.get('uid')
 
-        if obj.vid.uid == uid:
-            if request.method == "POST":
-                pname = request.POST.get('pname')
-                ptype = request.POST.get('type')
+    if obj.vid.uid == uid:
+        if request.method == "POST":
+            pname = request.POST.get('pname1')
+            ptype = request.POST.get('dispType1')
+            pstype = request.POST.get('dispSubType1')
+            price = request.POST.get('price1')
+            stock = request.POST.get('stock1')
+            descp = request.POST.get('descp1')
+            specs = request.POST.get('specs')
+            keyp = request.POST.get('keyp')
+            photo = request.FILES.get('new_photo')
 
-                pstype = request.POST.get('stype')
-                ostype = request.POST.get('o_stype')
+            keyp = json.loads(keyp)
+            specs = json.loads(specs)
+            
+            obj.pname = pname
+            obj.ptype = ptype
+            obj.pstype = pstype
+            obj.price = price
+            obj.stock = stock
+            obj.specs = specs
+            obj.pdesc = descp
+            obj.key_pnt = keyp
+            if photo:
+                obj.photo = photo
 
-                price = request.POST.get('price')
-                stock = request.POST.get('stock')
-                descp = request.POST.get('descp')
-                
+            obj.save()
 
-            data = {}
-            cat = Types.objects.values_list('type', flat=True)
-            data['cat'] = cat
-            opt = Types.objects.all()
-            data['obj1'] = opt
-            data['obj'] = obj
-            return render(request, 'update_pro.html', data)
-        else:
-            messages.error(request, "the product does not exists in your inventory")
-            return redirect(ven_dashboard)
+            messages.success(request, "the product updated sucessfully")
 
+            return redirect('manage_products')
+
+        data = {}
+        cat = Types.objects.values_list('type', flat=True)
+        data['cat'] = cat
+        opt = Types.objects.all()
+        data['obj1'] = opt
+        data['obj'] = obj
+        return render(request, 'update_pro.html', data)
+    else:
+        messages.error(request, "the product does not exists in your inventory")
+        return redirect(ven_dashboard)
 
 @vendor_login
 def orders(request):
@@ -174,7 +192,35 @@ def orders(request):
 
 @vendor_login
 def vprofile(request):
-    return render(request, 'vprofile.html')
+    data = {}
+    us = request.session.get('uid')
+    obj = Users.objects.get(uid = us)
+
+    if request.method == "POST":
+        cname = request.POST.get('cname')
+        caddr = request.POST.get('caddr')
+        uname = request.POST.get('uname')
+        email = request.POST.get('email')
+        ph_no = request.POST.get('ph_no')
+        location = request.POST.get('location')
+        addr = request.POST.get('addr')
+
+        obj.cname = cname
+        obj.caddr = caddr
+        obj.uname = uname
+        obj.email = email
+        obj.ph_no = ph_no
+        obj.location = location
+        obj.addr = addr
+
+        if request.FILES.get('photo_input'):
+            obj.photo = request.FILES['photo_input']
+
+        obj.save()
+        messages.success(request, "Profile updated successfully!")
+
+    data['obj'] = obj
+    return render(request, 'vprofile.html', data)
 
 @vendor_login
 def vlogout(request):
