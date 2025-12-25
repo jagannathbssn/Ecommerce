@@ -6,6 +6,9 @@ from service.models import Users
 def home(request):
     return render(request, 'home.html')
 
+def shop(request):
+    return render(request, 'shop.html')
+
 def login(request):
     if request.method == "POST":
         email = request.POST.get("email")

@@ -29,10 +29,13 @@ urlpatterns = [
     path('', v1.home, name='home'),
     path('login/', v1.login, name='login'),
     path('register/', v1.register, name='register'),
+    path('shop/', v1.shop, name='shop'),
     path('contact/', v1.contact, name='contact'),
     path('aboutus/', v1.aboutus, name='aboutus'),
 
     path('cutomer/customer-dashboard/', v2.cust_dashboard, name='cust_dashboard'),
+    path('cutomer/customer-cart/', v2.cart, name='cart'),
+    path('cutomer/customer-orders/', v2.cust_orders, name='cust_orders'),
 
     path('vendor/vendor-dashboard/', v3.ven_dashboard, name='ven_dashboard'),
     path('vendor/manage/products/', v3.manage_products, name="manage_products"),
