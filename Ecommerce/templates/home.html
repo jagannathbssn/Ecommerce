@@ -32,6 +32,36 @@
         <h1>Welcome to Our Ecommerce Store</h1>
         <p>Explore the best products at the best prices!</p>
       </center>
+
+      <div class="products">
+        {% for product in objs %}
+        <div class="product-card">
+          <a href="{% url 'product' product.pid %}" class="product-link">
+            <img src="{{ product.photo.url }}" alt="{{ product.pname }}" />
+            <h3 class="product-name">{{ product.pname }}</h3>
+          </a>
+          <p class="price">₹ {{ product.price }}</p>
+          <div class="product-buttons">
+            <button type="button" class="btn-cart">Add to Cart</button>
+            <button type="button" class="btn-buy">Buy</button>
+          </div>
+        </div>
+        {% empty %}
+        <p>No products available</p>
+        {% endfor %}
+      </div>
+
+      <div class="pagination">
+        {% if objs.has_previous %}
+        <a href="?page={{ objs.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span>{{ objs.number }}</span>
+
+        {% if objs.has_next %}
+        <a href="?page={{ objs.next_page_number }}">Next</a>
+        {% endif %}
+      </div>
     </main>
 
     <footer class="footer">

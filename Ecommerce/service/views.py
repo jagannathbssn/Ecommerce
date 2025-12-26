@@ -1,13 +1,31 @@
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
 from django.contrib import messages
 from service.models import Users
+from vendor.models import Product as Pro
 
 # Create your views here.
-def home(request):
-    return render(request, 'home.html')
 
-def shop(request):
-    return render(request, 'shop.html')
+def home(request):
+    obj_list = Pro.objects.filter(stock__gt=0)
+
+    paginator = Paginator(obj_list, 12)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    data = {
+        'objs': page_obj
+    }
+    return render(request, 'home.html', data)
+
+def product(request, id):
+    data = {}
+    try:
+        obj = Pro.objects.get(pid = id)
+        data['obj'] = obj
+    except:
+        return redirect('home')
+    return render(request, 'view_pro.html', data)
 
 def login(request):
     if request.method == "POST":
@@ -79,3 +97,4 @@ def contact(request):
 
 def aboutus(request):
     return render(request, 'aboutus.html')
+    

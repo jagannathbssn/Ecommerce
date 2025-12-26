@@ -27,14 +27,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', v1.home, name='home'),
+    path('view-prodcut/<int:id>/', v1.product, name='product'),
     path('login/', v1.login, name='login'),
     path('register/', v1.register, name='register'),
-    path('shop/', v1.shop, name='shop'),
     path('contact/', v1.contact, name='contact'),
     path('aboutus/', v1.aboutus, name='aboutus'),
 
     path('cutomer/customer-dashboard/', v2.cust_dashboard, name='cust_dashboard'),
     path('cutomer/customer-cart/', v2.cart, name='cart'),
+    path('customer/place-order/', v2.place_order, name='place_order'),
     path('cutomer/customer-orders/', v2.cust_orders, name='cust_orders'),
 
     path('vendor/vendor-dashboard/', v3.ven_dashboard, name='ven_dashboard'),

@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cartify</title>
-    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/prod.css' %}" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -29,9 +29,45 @@
 
     <main class="main-content">
       <center>
-        <h1>Welcome to Our Ecommerce Store</h1>
-        <p>Explore the best products at the best prices!</p>
+        <h1>Product details</h1>
       </center>
+
+      <div class="product-card">
+        <h2 class="product-title">{{ obj.pname }}</h2>
+
+        <div class="product-container">
+          <div class="product-image">
+            <img src="{{ obj.photo.url }}" alt="{{ obj.pname }}" />
+
+            <div class="product-actions">
+              <a href="#" class="btn btn-cart"> Add to Cart </a>
+              <a href="#" class="btn btn-buy"> Buy Now </a>
+            </div>
+          </div>
+
+          <div class="product-details">
+            <p><strong>Name:</strong> {{ obj.pname }}</p>
+            <p><strong>Price:</strong> ₹{{ obj.price }}</p>
+
+            <h3>Specifications:</h3>
+            <ul class="spec-list">
+              {% for key, value in obj.specs.items %}
+              <li><strong>{{ key }}:</strong> {{ value }}</li>
+              {% endfor %}
+            </ul>
+
+            <h3>Description:</h3>
+            <p class="description">{{ obj.pdesc }}</p>
+
+            <h3>Key Points:</h3>
+            <ul class="key-points">
+              {% for point in obj.key_pnt %}
+              <li>{{ point }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
     </main>
 
     <footer class="footer">
