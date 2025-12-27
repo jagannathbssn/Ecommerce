@@ -40,8 +40,16 @@
             <img src="{{ obj.photo.url }}" alt="{{ obj.pname }}" />
 
             <div class="product-actions">
-              <a href="#" class="btn btn-cart"> Add to Cart </a>
-              <a href="#" class="btn btn-buy"> Buy Now </a>
+              <button
+                type="button"
+                class="btn btn-cart"
+                data-id="{{ obj.pid }}"
+              >
+                Add to Cart
+              </button>
+              <button type="button" class="btn btn-buy" data-id="{{ obj.pid }}">
+                Buy Now
+              </button>
             </div>
           </div>
 
@@ -85,5 +93,7 @@
         </a>
       </div>
     </footer>
+
+    <script src="{% static 'js/add_to_cart.js' %}"></script>
   </body>
 </html>

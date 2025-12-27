@@ -114,27 +114,28 @@ header {
   color: #10b981;
   margin-top: 5px;
 }
-
-.product-buttons {
+.product-actions {
   display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
 }
 
-.product-buttons button {
-  flex: 1;
-  margin: 0 3px;
-  padding: 6px 10px;
-  border: none;
-  border-radius: 4px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
+button.btn-cart,
+button.btn-buy {
+  border: none; /* remove default button border */
+  cursor: pointer; /* show pointer on hover */
+  font-family: inherit; /* inherit font from parent */
 }
 
 .btn-cart {
   background-color: #3b82f6;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.3s ease;
 }
 
 .btn-cart:hover {
@@ -143,6 +144,12 @@ header {
 
 .btn-buy {
   background-color: #10b981;
+  color: #ffffff;
+  padding: 8px 22px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.3s ease;
 }
 
 .btn-buy:hover {

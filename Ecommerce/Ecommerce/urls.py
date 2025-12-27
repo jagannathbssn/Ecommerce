@@ -32,10 +32,12 @@ urlpatterns = [
     path('register/', v1.register, name='register'),
     path('contact/', v1.contact, name='contact'),
     path('aboutus/', v1.aboutus, name='aboutus'),
+    path('cart/<int:id>/', v1.add_cart, name='add_cart'),
 
     path('cutomer/customer-dashboard/', v2.cust_dashboard, name='cust_dashboard'),
+    path('cutomer/shop/', v2.shop, name='shop'),
     path('cutomer/customer-cart/', v2.cart, name='cart'),
-    path('customer/place-order/', v2.place_order, name='place_order'),
+    path('customer/place-order/<int:id>/', v2.place_order, name='place_order'),
     path('cutomer/customer-orders/', v2.cust_orders, name='cust_orders'),
 
     path('vendor/vendor-dashboard/', v3.ven_dashboard, name='ven_dashboard'),

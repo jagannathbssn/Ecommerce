@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.contrib import messages
+from django.http import JsonResponse
 from service.models import Users
 from vendor.models import Product as Pro
 
-# Create your views here.
 
 def home(request):
     obj_list = Pro.objects.filter(stock__gt=0)
@@ -12,6 +12,9 @@ def home(request):
     paginator = Paginator(obj_list, 12)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+
+    if 'cart' not in request.session:
+        request.session['cart'] = {}
 
     data = {
         'objs': page_obj
@@ -47,7 +50,7 @@ def login(request):
                         request.session['uid'] = obj.uid
                         request.session['uname'] = obj.uname
                         request.session['user_type'] = "Customer"
-                        return redirect('cust_dashboard')
+                        return redirect('shop')
         except Exception as e:
             messages.error(request, "please check the email")
             messages.error(request, "please try again email not found")
@@ -91,6 +94,20 @@ def register(request):
             messages.error(request, "User Registration Un-Sucessful")
             return redirect('register')
     return render(request, 'register.html')
+
+def add_cart(request, id):
+    cart = request.session.get('cart', {})
+    product_id = str(id)
+
+    if product_id in cart:
+        cart[product_id] += 1
+    else:
+        cart[product_id] = 1
+
+    request.session['cart'] = cart
+    request.session.modified = True
+
+    return JsonResponse({'success': True, 'cart': cart})
 
 def contact(request):
     return render(request, 'contact.html')
