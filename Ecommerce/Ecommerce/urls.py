@@ -34,7 +34,6 @@ urlpatterns = [
     path('aboutus/', v1.aboutus, name='aboutus'),
     path('cart/<int:id>/', v1.add_cart, name='add_cart'),
 
-    path('cutomer/customer-dashboard/', v2.cust_dashboard, name='cust_dashboard'),
     path('cutomer/shop/', v2.shop, name='shop'),
     path('cutomer/customer-cart/', v2.cart, name='cart'),
     path('customer/place-order/<int:id>/', v2.place_order, name='place_order'),

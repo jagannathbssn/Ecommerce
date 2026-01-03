@@ -107,6 +107,7 @@ def add_cart(request, id):
     request.session['cart'] = cart
     request.session.modified = True
 
+    print(cart)
     return JsonResponse({'success': True, 'cart': cart})
 
 def contact(request):

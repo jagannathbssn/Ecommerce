@@ -5,9 +5,6 @@ from service.decorators import customer_login
 from vendor.models import Product as Pro
 
 # Create your views here.
-@customer_login
-def cust_dashboard(request):
-    return render(request, 'cust_dashboard.html')
 
 @customer_login
 def shop(request):
@@ -24,17 +21,17 @@ def shop(request):
 
 @customer_login
 def place_order(request, id):
-    abd = id
-    print(abd)
-    return render(request, 'place_order.html')
+    if request.method == "POST":
+        return redirect('home')
+    obj = Pro.objects.get(pid = id)
+    data = {}
+    data['obj'] = obj
+    return render(request, 'place_order.html', data)
 
 @customer_login
 def cart(request):
     return render(request, 'cart.html')
 
-@customer_login
-def place_order(request):
-    return render(request, 'place_order.html')
 
 @customer_login
 def cust_orders(request):

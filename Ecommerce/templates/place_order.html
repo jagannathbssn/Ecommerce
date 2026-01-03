@@ -1,11 +1,94 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Cartify</title>
+    <link rel="stylesheet" href="{% static 'css/place_order.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
   </head>
   <body>
-    place order vbdjbhjhbkjbhk
+    <header class="header">
+      <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="Lojfggo" />
+      </div>
+
+      <div class="navi">
+        <nav class="nav-links">
+          <a href="">Shop</a>
+          <a href="">Cart</a>
+          <a href="">Orders</a>
+          <a href="">Hi, {{ request.session.uname }}</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <h2 class="title">Wanna order this product?</h2>
+
+      <div class="order-container">
+        <h3>Product Details</h3>
+
+        <div id="img_cont">
+          <img src="{{ obj.photo.url }}" alt="{{ obj.pname }}" width="200" />
+        </div>
+
+        <div id="pro_det">
+          <p><strong>Name:</strong> {{ obj.pname }}</p>
+
+          <p>
+            <strong>Price:</strong> ₹<span id="price">{{ obj.price }}</span>
+          </p>
+
+          <div class="qty-controls">
+            <button type="button" id="minus">−</button>
+            <input type="text" id="quantity" value="1" />
+            <button type="button" id="plus">+</button>
+          </div>
+
+          <p>
+            <strong>Total:</strong> ₹<span id="total">{{ obj.price }}</span>
+          </p>
+        </div>
+
+        <div>
+          <form action="{% url place_order obj.id %}" method="post">
+            {% csrf_token %}
+
+            <input
+              type="text"
+              name="cust_id"
+              value="{{request.session.uname}}"
+            />
+            <input type="hidden" name="quantity" id="form_quantity" />
+            <input type="hidden" name="total_price" id="form_total" />
+
+            <button type="submit">Order Now</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="i1">
+        <p>&copy; 2025 Ecommerce. All rights reserved.</p>
+      </div>
+
+      <div class="social-links">
+        <a href="https://github.com/" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+
+        <a href="https://www.linkedin.com/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </div>
+    </footer>
+
+    <script src="{% static 'js/place_order.js' %}"></script>
   </body>
 </html>

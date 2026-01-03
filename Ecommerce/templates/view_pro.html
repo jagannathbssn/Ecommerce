@@ -19,10 +19,17 @@
 
       <div class="navi">
         <nav class="nav-links">
+          {% if request.session.uname %}
+          <a href="">Shop</a>
+          <a href="">Cart</a>
+          <a href="">Orders</a>
+          <a href="">Hi, {{ request.session.uname }}</a>
+          {% else %}
           <a href="{% url 'home' %}">Home</a>
           <a href="{% url 'login' %}">Login</a>
           <a href="{% url 'contact' %}">Contact Us</a>
           <a href="{% url 'aboutus' %}">About Us</a>
+          {% endif %}
         </nav>
       </div>
     </header>
@@ -47,14 +54,13 @@
               >
                 Add to Cart
               </button>
-              <button type="button" class="btn btn-buy" data-id="{{ obj.pid }}">
+              <a href="{% url 'place_order' obj.pid %}" class="btn btn-buy">
                 Buy Now
-              </button>
+              </a>
             </div>
           </div>
 
           <div class="product-details">
-            <p><strong>Name:</strong> {{ obj.pname }}</p>
             <p><strong>Price:</strong> ₹{{ obj.price }}</p>
 
             <h3>Specifications:</h3>
