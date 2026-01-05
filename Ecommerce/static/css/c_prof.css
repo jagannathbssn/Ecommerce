@@ -1,0 +1,237 @@
+/* =======================
+   BASE STYLES
+======================= */
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #eff6ff;
+  color: #1f2937;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* =======================
+   HEADER
+======================= */
+
+header {
+  background-color: #3b82f6;
+  top: 0;
+  position: sticky;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 80px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.logo img {
+  height: 70px;
+}
+
+.navi a {
+  font-size: 20px;
+  color: #eff6ff;
+  text-decoration: none;
+  margin: 0 10px;
+  transition: all 0.3s ease;
+  padding: 10px 15px;
+  font-weight: 500;
+}
+
+.navi a:hover {
+  color: #60a5fa;
+  background-color: azure;
+  border-radius: 10px;
+}
+
+/* =======================
+   MAIN CONTENT
+======================= */
+
+.main-content {
+  min-height: 75vh;
+  padding: 40px;
+}
+
+/* =======================
+   PROFILE PAGE
+======================= */
+
+.profile-header h1 {
+  margin-bottom: 10px;
+}
+
+.profile-header h2 a {
+  text-decoration: none;
+  color: #ef4444;
+  font-size: 18px;
+}
+
+.profile-header h2 a:hover {
+  text-decoration: underline;
+}
+
+/* =======================
+   PROFILE FIELDSET
+======================= */
+
+fieldset {
+  width: 55%;
+  padding: 25px;
+  border: 2px solid #c7d2fe;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+legend {
+  font-weight: bold;
+  font-size: 20px;
+  padding: 0 15px;
+  color: #1e40af;
+}
+
+/* =======================
+   FORM ELEMENTS
+======================= */
+
+label {
+  display: inline-block;
+  width: 160px;
+  font-weight: 600;
+  margin-top: 12px;
+  text-align: left;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 260px;
+  padding: 8px;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  font-size: 15px;
+}
+
+textarea {
+  height: 80px;
+  resize: none;
+}
+
+/* Readonly fields */
+input[readonly],
+textarea[readonly] {
+  background-color: #f1f5f9;
+  cursor: not-allowed;
+}
+
+/* =======================
+   PROFILE IMAGE
+======================= */
+
+img {
+  margin-top: 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+}
+
+#preview {
+  margin-top: 10px;
+}
+
+/* =======================
+   BUTTONS
+======================= */
+
+input[type="button"],
+input[type="submit"] {
+  margin-top: 20px;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Edit Button */
+#ed_but {
+  background-color: #2563eb;
+  color: white;
+}
+
+#ed_but:hover {
+  background-color: #1e40af;
+}
+
+/* Save Button */
+#sv_but {
+  background-color: #22c55e;
+  color: white;
+}
+
+#sv_but:hover {
+  background-color: #15803d;
+}
+
+/* =======================
+   MESSAGES
+======================= */
+
+p {
+  color: #16a34a;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* =======================
+   FOOTER
+======================= */
+
+footer {
+  background-color: #1e3a8a;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 18px;
+  color: #eff6ff;
+}
+
+.social-links a {
+  font-size: 25px;
+  padding: 0 10px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+  color: #3b82f6;
+}
+
+/* =======================
+   RESPONSIVE
+======================= */
+
+@media (max-width: 768px) {
+  fieldset {
+    width: 90%;
+  }
+
+  label {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 100%;
+  }
+}

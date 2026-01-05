@@ -19,10 +19,10 @@
 
       <div class="navi">
         <nav class="nav-links">
-          <a href="">Shop</a>
+          <a href="{% url 'shop' %}">Shop</a>
           <a href="">Cart</a>
           <a href="">Orders</a>
-          <a href="">Hi, {{ request.session.uname }}</a>
+          <a href="{% url 'cust_profile' %}">Hi, {{ request.session.uname }}</a>
         </nav>
       </div>
     </header>

@@ -22,7 +22,7 @@
           <a href="">Shop</a>
           <a href="">Cart</a>
           <a href="">Orders</a>
-          <a href="">Hi, {{ request.session.uname }}</a>
+          <a href="{% url 'cust_profile' %}">Hi, {{ request.session.uname }}</a>
         </nav>
       </div>
     </header>
@@ -56,16 +56,29 @@
         </div>
 
         <div>
-          <form action="{% url place_order obj.id %}" method="post">
+          <form action="{% url 'place_order' obj.pid %}" method="post">
             {% csrf_token %}
 
             <input
               type="text"
               name="cust_id"
               value="{{request.session.uname}}"
+              hidden
             />
-            <input type="hidden" name="quantity" id="form_quantity" />
-            <input type="hidden" name="total_price" id="form_total" />
+            <input
+              type="text"
+              name="quantity"
+              id="form_quantity"
+              value="{{obj.pname}}"
+              hidden
+            />
+            <input
+              type="text"
+              name="total_price"
+              id="form_total"
+              value="{{obj.price}}"
+              hidden
+            />
 
             <button type="submit">Order Now</button>
           </form>

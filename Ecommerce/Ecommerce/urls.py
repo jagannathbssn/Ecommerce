@@ -38,6 +38,8 @@ urlpatterns = [
     path('cutomer/customer-cart/', v2.cart, name='cart'),
     path('customer/place-order/<int:id>/', v2.place_order, name='place_order'),
     path('cutomer/customer-orders/', v2.cust_orders, name='cust_orders'),
+    path('cutomer/customer-profile/', v2.cust_profile, name='cust_profile'),
+    path('cutomer/logout/', v2.cust_logout, name='cust_logout'),
 
     path('vendor/vendor-dashboard/', v3.ven_dashboard, name='ven_dashboard'),
     path('vendor/manage/products/', v3.manage_products, name="manage_products"),

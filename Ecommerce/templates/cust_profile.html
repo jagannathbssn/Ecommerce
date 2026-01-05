@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cartify</title>
+    <link rel="stylesheet" href="{% static 'css/c_prof.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="Lojfggo" />
+      </div>
+
+      <div class="navi">
+        <nav class="nav-links">
+          <a href="{% url 'shop' %}">Shop</a>
+          <a href="">Cart</a>
+          <a href="">Orders</a>
+          <a href="{% url 'cust_profile' %}">Hi, {{ request.session.uname }}</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <center>
+        <div class="profile-header">
+          <h1>Profile Page</h1>
+          <h2><a href="{% url 'cust_logout' %}">Logout</a></h2>
+        </div>
+
+        {% if messages %} {% for i in messages %}
+        <p>{{i}}</p>
+        {% endfor %} {% endif %}
+
+        <fieldset>
+          <legend>Profile</legend>
+          <form
+            action="{% url 'cust_profile' %}"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            {% csrf_token %}
+
+            <label for="uname">Username : </label>
+            <input
+              type="text"
+              id="uname"
+              name="uname"
+              value="{{obj.uname}}"
+              readonly
+            />
+            <br />
+
+            <label for="email">Email : </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value="{{obj.email}}"
+              readonly
+            />
+            <br />
+
+            <label for="ph_no">Phone Number : </label>
+            <input
+              type="text"
+              id="ph_no"
+              name="ph_no"
+              value="{{obj.ph_no}}"
+              readonly
+            />
+            <br />
+
+            <label for="location">Location : </label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              value="{{obj.location}}"
+              readonly
+            />
+            <br />
+
+            <label for="addr">Address : </label>
+            <br />
+            <textarea id="addr" name="addr" readonly>{{obj.addr}}</textarea>
+            <br />
+
+            <label for="photo">Profile Photo</label>
+            <br />
+            {% if obj.photo %}
+            <img
+              src="{{ obj.photo.url }}"
+              alt="Profile Photo"
+              style="max-width: 150px"
+            />
+            {% else %}
+            <p>No photo uploaded</p>
+            {% endif %}
+            <br />
+
+            <div id="new_photo" style="display: none">
+              <label for="photo_input">Upload Profile Photo:</label>
+              <input
+                type="file"
+                id="photo_input"
+                name="photo_input"
+                accept="image/*"
+              />
+            </div>
+
+            <img
+              id="preview"
+              src="#"
+              alt="Preview"
+              style="display: none; max-width: 150px"
+            />
+            <br />
+
+            <input id="ed_but" type="button" value="Edit" />
+            <input
+              id="sv_but"
+              type="submit"
+              value="Save"
+              style="display: none"
+            />
+          </form>
+        </fieldset>
+      </center>
+    </main>
+
+    <footer class="footer">
+      <div class="i1">
+        <p>&copy; 2025 Ecommerce. All rights reserved.</p>
+      </div>
+
+      <div class="social-links">
+        <a href="https://github.com/" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+
+        <a href="https://www.linkedin.com/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </div>
+    </footer>
+    <script src="{% static 'js/cprof.js' %}"></script>
+  </body>
+</html>
